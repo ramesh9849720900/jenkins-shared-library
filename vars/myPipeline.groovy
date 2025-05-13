@@ -22,16 +22,18 @@ def call() {
 
         stage('Push Artifact to GitHub') {
             dir('webapp') {
-                sh '''
-                    git config user.email "rameshrams9849@gmail.com"
-                    git config user.name "Ramesh"
-                    git fetch origin artifact-upload 
-                    git checkout -B artifact-upload origin/artifact-upload
-                    cp target/webapp.war .
-                    git add webapp.war
-                    git commit -m "Add build artifact" || echo "No changes to commit"
-                    git push https://ramesh9849720900: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@github.com/ramesh9849720900/Setup-CI-CD-with-Github-Jenkins-Maven-and-Tomcat-on-AWS.git HEAD:artifact-upload
-                '''
+                withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                    sh '''
+                        git config user.email "rameshrams9849@gmail.com"
+                        git config user.name "Ramesh"
+                        git fetch origin artifact-upload 
+                        git checkout -B artifact-upload origin/artifact-upload
+                        cp target/webapp.war .
+                        git add webapp.war
+                        git commit -m "Add build artifact" || echo "No changes to commit"
+                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/ramesh9849720900/Setup-CI-CD-with-Github-Jenkins-Maven-and-Tomcat-on-AWS.git HEAD:artifact-upload
+                    '''
+                }
             }
         }
 
