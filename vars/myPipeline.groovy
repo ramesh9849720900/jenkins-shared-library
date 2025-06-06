@@ -16,7 +16,7 @@ def call() {
         
         stage('Unit Test'){
               sh "${mvnHome}/bin/mvn test -f webapp/pom.xml"
-              junit '**/webapp/target/surefire-reports/*.xml'
+              junit '**/webapp/target/surefire/*.xml'
         }
         
         // Publish JaCoCo coverage report (after build & test)
