@@ -16,12 +16,12 @@ def call() {
         
         stage('Unit Test'){
               sh "${mvnHome}/bin/mvn test -f webapp/pom.xml"
-              junit '**/webapp/target/surefire/*.xml'
+              junit 'webapp/target/surefire-reports/*.xml'
         }
         
-        // Publish JaCoCo coverage report (after build & test)
-        jacoco(execPattern: '**/webapp/target/jacoco.exec')
-
+        stage('Code Coverage'){
+        jacoco(execPattern: 'webapp/target/jacoco.exec')
+        }
         /*
         stage('Build & Analysis in SonarQube') {
             withSonarQubeEnv('sonarserver') {
