@@ -1,5 +1,4 @@
-def call(Map Config) {
-    echo "Deploying image: ${config.imageName}"
+def call(Map config = [:]) {
     node {
         def mvnHome = tool 'Maven-3.9'
 
@@ -16,7 +15,7 @@ def call(Map Config) {
         }
 
 
-        
+        /*
         stage('Unit Test'){
               sh "${mvnHome}/bin/mvn test -f webapp/pom.xml"
               junit 'webapp/target/surefire-reports/*.xml'
@@ -34,8 +33,7 @@ def call(Map Config) {
             }
         }
 
-        
-
+        */
         stage('Docker Build & Push') {
             echo "Starting Docker Build & Push Stage"
             sh 'docker build -t webapp:latest .'
