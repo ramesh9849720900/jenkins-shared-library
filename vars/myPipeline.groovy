@@ -54,8 +54,8 @@ def call(Map config = [:]) {
                 // Copy YAML files from resources
                 def svc = libraryResource('webapp/regapp-deploy.yml')
                 def svc1 = libraryResource('webapp/regapp-service.yml')
-                writeFile file: 'regapp-deploy.yml', text: libraryResource('webapp/regapp-deploy.yml')
-                writeFile file: 'regapp-service.yml', text: libraryResource('webapp/regapp-service.yml')
+                writeFile file: 'regapp-deploy.yml', text: svc
+                writeFile file: 'regapp-service.yml', text: svc1
 
                 // Optional: validate config
                 sh 'kubectl version --client'
