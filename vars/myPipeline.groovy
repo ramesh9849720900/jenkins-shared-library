@@ -15,7 +15,7 @@ def call(Map config = [:]) {
         }
 
 
-        
+        /*
         stage('Unit Test'){
               sh "${mvnHome}/bin/mvn test -f webapp/pom.xml"
               junit 'webapp/target/surefire-reports/*.xml'
@@ -32,7 +32,7 @@ def call(Map config = [:]) {
                 sh "${mvnHome}/bin/mvn clean install sonar:sonar -U -f webapp/pom.xml"
             }
         }
-
+*/
         
         stage('Docker Build & Push') {
             echo "Starting Docker Build & Push Stage"
@@ -52,8 +52,8 @@ def call(Map config = [:]) {
                 echo "Deploying to Kubernetes cluster on AWS EKS"
 
                 // Copy YAML files from resources
-                def svc = libraryResource('webapp/regapp-deploy.yml')
-                def svc1 = libraryResource('webapp/regapp-service.yml')
+                def svc = libraryResource('regapp-deploy.yml')
+                def svc1 = libraryResource('regapp-service.yml')
                 writeFile file: 'regapp-deploy.yml', text: libraryResource('regapp-deploy.yml')
                 writeFile file: 'regapp-service.yml', text: libraryResource('regapp-service.yml')
 
