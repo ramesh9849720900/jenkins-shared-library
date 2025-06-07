@@ -1,4 +1,5 @@
-def call() {
+def call(Map Config) {
+    echo "Deploying image: ${config.imageName}"
     node {
         def mvnHome = tool 'Maven-3.9'
 
