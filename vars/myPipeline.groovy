@@ -52,8 +52,8 @@ def call(Map config = [:]) {
                 echo "Deploying to Kubernetes cluster on AWS EKS"
 
                 // Copy YAML files from resources
-                def svc = libraryResource('regapp-deploy.yml')
-                def svc1 = libraryResource('regapp-service.yml')
+                def svc = libraryResource('**/regapp-deploy.yml')
+                def svc1 = libraryResource('**/regapp-service.yml')
                 writeFile file: 'regapp-deploy.yml', text: libraryResource('regapp-deploy.yml')
                 writeFile file: 'regapp-service.yml', text: libraryResource('regapp-service.yml')
 
