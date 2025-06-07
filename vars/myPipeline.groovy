@@ -15,7 +15,7 @@ def call(Map config = [:]) {
         }
 
 
-        /*
+        
         stage('Unit Test'){
               sh "${mvnHome}/bin/mvn test -f webapp/pom.xml"
               junit 'webapp/target/surefire-reports/*.xml'
@@ -33,7 +33,7 @@ def call(Map config = [:]) {
             }
         }
 
-        */
+        
         stage('Docker Build & Push') {
             echo "Starting Docker Build & Push Stage"
             sh 'docker build -t webapp:latest .'
