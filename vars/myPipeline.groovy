@@ -40,6 +40,27 @@ def call() {
         }
 
 
+        stage('Kubernetes Deployment') {
+            withEnv([
+                "KUBECONFIG=${config.kubeconfig ?: '~/.kube/config'}"
+            ]) {
+                echo "Deploying to Kubernetes cluster on AWS EKS"
+
+                // Copy YAML files from resources
+                writeFile file: 'regapp-deploy.yml', text: libraryResource('regapp-deploy.yml')
+                writeFile file: 'regapp-service.yml', text: libraryResource('regapp-service.yml')
+
+                // Optional: validate config
+                sh 'kubectl version --client'
+                sh 'kubectl get nodes'
+
+                // Apply deployment and service YAMLs
+                sh 'kubectl apply -f regapp-deploy.yml'
+                sh 'kubectl apply -f regapp-service.yml'
+            }
+        }
+
+    
         
         /*
         stage('Push Artifact to GitHub') {
