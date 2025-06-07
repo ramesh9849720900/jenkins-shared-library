@@ -30,19 +30,12 @@ def call() {
         }
 
         stage('Docker Build & Push') {
-            steps {
-                script {
-                    def imageName = "ramesh9849720900/webapp" // Change to your Docker Hub username/repo
-                    def imageTag = "v1.0.${env.BUILD_NUMBER}" // Optional versioning
-
-                    withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                        sh '''
-                            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                            docker build -t ${imageName}:${imageTag} .
-                            docker push ${imageName}:${imageTag}
-                        '''
-                    }
-                }
+            echo "Starting Docker Build & Push Stage"
+            sh 'docker build -t my-image-name:latest .'
+            sh 'docker tag my-image-name:latest my-dockerhub-username/my-image-name:latest'
+            withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
+                sh 'docker push my-dockerhub-username/my-image-name:latest'
             }
         }
 
