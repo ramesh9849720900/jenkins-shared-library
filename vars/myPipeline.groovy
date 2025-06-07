@@ -28,6 +28,26 @@ def call() {
                 sh "${mvnHome}/bin/mvn clean install sonar:sonar -U -f webapp/pom.xml"
             }
         }
+
+        stage('Docker Build & Push') {
+            steps {
+                script {
+                    def imageName = "ramesh9849720900/webapp" // Change to your Docker Hub username/repo
+                    def imageTag = "v1.0.${env.BUILD_NUMBER}" // Optional versioning
+
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        sh '''
+                            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                            docker build -t ${imageName}:${imageTag} .
+                            docker push ${imageName}:${imageTag}
+                        '''
+                    }
+                }
+            }
+        }
+
+
+        
         /*
         stage('Push Artifact to GitHub') {
             dir('webapp') {
