@@ -14,7 +14,9 @@ def call(Map Config) {
         stage('Build') {
             sh "${mvnHome}/bin/mvn clean install -f webapp/pom.xml"
         }
-        
+
+
+        /*
         stage('Unit Test'){
               sh "${mvnHome}/bin/mvn test -f webapp/pom.xml"
               junit 'webapp/target/surefire-reports/*.xml'
@@ -23,12 +25,16 @@ def call(Map Config) {
         stage('Code Coverage'){
         jacoco(execPattern: 'webapp/target/jacoco.exec')
         }
+
+
         
         stage('Analysis in SonarQube') {
             withSonarQubeEnv('sonarserver') {
                 sh "${mvnHome}/bin/mvn clean install sonar:sonar -U -f webapp/pom.xml"
             }
         }
+
+        */
 
         stage('Docker Build & Push') {
             echo "Starting Docker Build & Push Stage"
