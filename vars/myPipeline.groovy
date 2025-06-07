@@ -22,13 +22,13 @@ def call() {
         stage('Code Coverage'){
         jacoco(execPattern: 'webapp/target/jacoco.exec')
         }
-        /*
-        stage('Build & Analysis in SonarQube') {
+        
+        stage('Analysis in SonarQube') {
             withSonarQubeEnv('sonarserver') {
                 sh "${mvnHome}/bin/mvn clean install sonar:sonar -U -f webapp/pom.xml"
             }
         }
-
+        /*
         stage('Push Artifact to GitHub') {
             dir('webapp') {
                 withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
