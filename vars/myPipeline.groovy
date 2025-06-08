@@ -52,18 +52,18 @@ def call(Map config = [:]) {
                 echo "Deploying to Kubernetes cluster on AWS EKS"
 
                 // Copy YAML files from resources
-                def svc = libraryResource('webapp/regapp-deploy.yml')
-                def svc1 = libraryResource('webapp/regapp-service.yml')
-                writeFile file: 'regapp-deploy.yml', text: svc
-                writeFile file: 'regapp-service.yml', text: svc1
+                //def svc = libraryResource('webapp/regapp-deploy.yml')
+                //def svc1 = libraryResource('webapp/regapp-service.yml')
+                //writeFile file: 'regapp-deploy.yml', text: svc
+                //writeFile file: 'regapp-service.yml', text: svc1
 
                 // Optional: validate config
                 sh 'kubectl version --client'
                 sh 'kubectl get nodes'
 
                 // Apply deployment and service YAMLs
-                sh 'kubectl apply -f regapp-deploy.yml'
-                sh 'kubectl apply -f regapp-service.yml'
+                sh 'kubectl apply -f resources/webapp/regapp-deploy.yml'
+                sh 'kubectl apply -f resources/webapp/regapp-service.yml'
             }
         }
 
