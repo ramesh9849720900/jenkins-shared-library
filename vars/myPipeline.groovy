@@ -53,7 +53,7 @@ def call(Map config = [:]) {
             )]) {
                 withEnv([
                     'AWS_DEFAULT_REGION=ap-south-1',  // Replace if needed
-                    'CLUSTER_NAME=default'  // Replace with actual EKS cluster name
+                    'CLUSTER_NAME=ferocious-hiphop-hideout'  // Replace with actual EKS cluster name
                 ]) {
                     echo "Setting up kubeconfig for EKS"
                     sh '''
