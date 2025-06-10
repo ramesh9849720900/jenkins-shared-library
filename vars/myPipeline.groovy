@@ -45,30 +45,30 @@ def call(Map config = [:]) {
         }
 
 
-        stage('Kubernetes Deployment') {
-            withEnv([
-                "KUBECONFIG=${config.kubeconfig ?: '~/.kube/config'}"
-            ]) {
-                echo "Deploying to Kubernetes cluster on AWS EKS"
-
-                // Copy YAML files from resources
-                //def svc = libraryResource('webapp/regapp-deploy.yml')
-                //def svc1 = libraryResource('webapp/regapp-service.yml')
-                //writeFile file: 'regapp-deploy.yml', text: svc
-                //writeFile file: 'regapp-service.yml', text: svc1
-
-                // Optional: validate config
-                sh 'kubectl version --client'
-                sh 'kubectl get nodes'
-
-                // Apply deployment and service YAMLs
-                sh 'kubectl apply -f resources/webapp/regapp-deploy.yml'
-                sh 'kubectl apply -f resources/webapp/regapp-service.yml'
+        stage('Kubernetes Deployment to EKS') {
+            withCredentials([usernamePassword(
+                credentialsId: 'aws-eks-creds',
+                usernameVariable: 'AWS_ACCESS_KEY_ID',
+                passwordVariable: 'AWS_SECRET_ACCESS_KEY'
+            )]) {
+                withEnv([
+                    'AWS_DEFAULT_REGION=ap-south-1',  // Replace if needed
+                    'CLUSTER_NAME=default'  // Replace with actual EKS cluster name
+                ]) {
+                    echo "Setting up kubeconfig for EKS"
+                    sh '''
+                        aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_DEFAULT_REGION
+                        echo "Running kubectl commands"
+                        kubectl get nodes
+                        kubectl apply -f regapp-deploy.yml
+                        kubectl apply -f regapp-service.yml
+                    '''
+                }
             }
         }
 
-    
-        
+
+     
         /*
         stage('Push Artifact to GitHub') {
             dir('webapp') {
