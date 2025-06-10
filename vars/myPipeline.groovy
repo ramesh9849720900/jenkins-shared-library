@@ -60,8 +60,8 @@ def call(Map config = [:]) {
                         aws eks update-kubeconfig --name $CLUSTER_NAME --region $AWS_DEFAULT_REGION
                         echo "Running kubectl commands"
                         kubectl get nodes
-                        kubectl apply -f regapp-deploy.yml
-                        kubectl apply -f regapp-service.yml
+                        kubectl apply -f webapp/regapp-deploy.yml
+                        kubectl apply -f webapp/regapp-service.yml
                     '''
                 }
             }
