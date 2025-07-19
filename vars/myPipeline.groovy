@@ -43,7 +43,7 @@ def call(Map config = [:]) {
                 sh 'docker push ramesh9849720900/webapp:latest'
             }
         }
-
+        /*
 
         stage('Kubernetes Deployment to EKS') {
             withCredentials([usernamePassword(
@@ -67,7 +67,7 @@ def call(Map config = [:]) {
             }
         }
 
-
+*/
      
         /*
         stage('Push Artifact to GitHub') {
