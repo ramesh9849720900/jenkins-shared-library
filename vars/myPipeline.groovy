@@ -67,7 +67,7 @@ def call(Map config = [:]) {
             }
         }
 
-*/
+
      
         /*
         stage('Push Artifact to GitHub') {
