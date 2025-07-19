@@ -10,6 +10,7 @@ def call(Map config = [:]) {
                             ]])
         }
 
+        /*
         stage('Build') {
             sh "${mvnHome}/bin/mvn clean install -f webapp/pom.xml"
         }
@@ -67,7 +68,7 @@ def call(Map config = [:]) {
             }
         }
 
-
+*/
      
         /*
         stage('Push Artifact to GitHub') {
