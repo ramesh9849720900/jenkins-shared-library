@@ -37,7 +37,7 @@ def call(Map config = [:]) {
         stage('Docker Build & Push') {
             echo "Starting Docker Build & Push Stage"
             sh 'docker build -t webapp:latest .'
-            sh 'docker tag my-image-name:latest ramesh9849720900/webapp:latest'
+            sh 'docker tag webapp:latest ramesh9849720900/webapp:latest'
             withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                 sh 'echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin'
                 sh 'docker push ramesh9849720900/webapp:latest'
