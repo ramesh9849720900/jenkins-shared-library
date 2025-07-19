@@ -10,12 +10,12 @@ def call(Map config = [:]) {
                             ]])
         }
 
-        /*
+        
         stage('Build') {
             sh "${mvnHome}/bin/mvn clean install -f webapp/pom.xml"
         }
 
-
+/*
         
         stage('Unit Test'){
               sh "${mvnHome}/bin/mvn test -f webapp/pom.xml"
