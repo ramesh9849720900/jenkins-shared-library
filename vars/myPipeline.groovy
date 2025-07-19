@@ -15,7 +15,6 @@ def call(Map config = [:]) {
             sh "${mvnHome}/bin/mvn clean install -f webapp/pom.xml"
         }
 
-/*
         
         stage('Unit Test'){
               sh "${mvnHome}/bin/mvn test -f webapp/pom.xml"
@@ -27,7 +26,7 @@ def call(Map config = [:]) {
         }
 
 
-        
+      /*  
         stage('Analysis in SonarQube') {
             withSonarQubeEnv('sonarserver') {
                 sh "${mvnHome}/bin/mvn clean install sonar:sonar -U -f webapp/pom.xml"
