@@ -33,7 +33,7 @@ def call(Map config = [:]) {
             }
         }
 
-      
+      */
         stage('Docker Build & Push') {
             echo "Starting Docker Build & Push Stage"
             sh 'docker build -t webapp:latest .'
@@ -43,7 +43,7 @@ def call(Map config = [:]) {
                 sh 'docker push ramesh9849720900/webapp:latest'
             }
         }
-      */  
+       
 
         stage('Kubernetes Deployment to EKS') {
             withCredentials([usernamePassword(
