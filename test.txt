@@ -1,8 +1,4 @@
 # test
 welcome
 
-
-good Morning1
-
-
-5+5=10
+5*5=25
