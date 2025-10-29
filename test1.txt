@@ -4,8 +4,4 @@ Testing the repo
 
 adding another line
 
-
-2+2=4
-
-
-10+10=20
+25*25=125
