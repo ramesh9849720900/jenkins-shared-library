@@ -1,3 +1,1 @@
-This is Kondala Deployment
-
-This is Tejaswi Deployment
+This is new deployment
