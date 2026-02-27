@@ -16,6 +16,8 @@ def call(Map config = [:]) {
         }
     }
 
+}
+
         /*
         stage('Unit Test'){
               sh "${mvnHome}/bin/mvn test -f webapp/pom.xml"
@@ -25,7 +27,7 @@ def call(Map config = [:]) {
         stage('Code Coverage'){
         jacoco(execPattern: 'webapp/target/jacoco.exec')
         }
-
+    
 
       
         stage('Analysis in SonarQube') {
@@ -70,7 +72,7 @@ def call(Map config = [:]) {
 
 
      
-        /*
+        
         stage('Push Artifact to GitHub') {
             dir('webapp') {
                 withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
@@ -94,11 +96,11 @@ def call(Map config = [:]) {
                 sudo systemctl restart tomcat
             '''
         }
-        */
+        
 
 
-    }
+    
 }
 
-
 */
+
