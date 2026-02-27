@@ -7,7 +7,9 @@ def call(Map config = [:]) {
                             extensions: [],
                             userRemoteConfigs: [[
                                 url: 'https://github.com/ramesh9849720900/Setup-CI-CD-with-Github-Jenkins-Maven-and-Tomcat-on-AWS.git'
-                            ]])
+                            ]]
+                           )
+            
         }
 
         
