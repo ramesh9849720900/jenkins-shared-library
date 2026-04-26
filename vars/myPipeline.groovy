@@ -19,8 +19,6 @@ def call(Map config = [:]) {
     
 
 
-
-        /*
         stage('Unit Test'){
               sh "${mvnHome}/bin/mvn test -f webapp/pom.xml"
               junit 'webapp/target/surefire-reports/*.xml'
@@ -50,6 +48,24 @@ def call(Map config = [:]) {
         }
        
 
+        stage('Push Artifact to GitHub') {
+            dir('webapp') {
+                withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                    sh '''
+                        git config user.email "rameshrams9849@gmail.com"
+                        git config user.name "Ramesh"
+                        git fetch origin artifact-upload 
+                        git checkout -B artifact-upload origin/artifact-upload
+                        cp target/webapp.war .
+                        git add webapp.war
+                        git commit -m "Add build artifact" || echo "No changes to commit"
+                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/ramesh9849720900/Setup-CI-CD-with-Github-Jenkins-Maven-and-Tomcat-on-AWS.git HEAD:artifact-upload
+                    '''
+                }
+            }
+        }
+
+    
         stage('Kubernetes Deployment to EKS') {
             withCredentials([usernamePassword(
                 credentialsId: 'aws-eks-creds',
@@ -73,25 +89,6 @@ def call(Map config = [:]) {
         }
 
 
-     
-        
-        stage('Push Artifact to GitHub') {
-            dir('webapp') {
-                withCredentials([usernamePassword(credentialsId: 'github-credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
-                    sh '''
-                        git config user.email "rameshrams9849@gmail.com"
-                        git config user.name "Ramesh"
-                        git fetch origin artifact-upload 
-                        git checkout -B artifact-upload origin/artifact-upload
-                        cp target/webapp.war .
-                        git add webapp.war
-                        git commit -m "Add build artifact" || echo "No changes to commit"
-                        git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/ramesh9849720900/Setup-CI-CD-with-Github-Jenkins-Maven-and-Tomcat-on-AWS.git HEAD:artifact-upload
-                    '''
-                }
-            }
-        }
-
         stage('Deploy to Tomcat') {
             sh '''
                 sudo cp webapp/target/webapp.war /opt/tomcat/webapps/
@@ -104,6 +101,6 @@ def call(Map config = [:]) {
     
 }
 
-*/
+
     }
 }
