@@ -28,3 +28,13 @@ this is final commit
 
 <img width="476" height="250" alt="Evidence1" src="https://github.com/user-attachments/assets/768bc011-22ff-4953-877d-3bd02c92984f" />
 
+
+
+
+
+Reference for My AWS Account Block
+<img width="928" height="451" alt="2" src="https://github.com/user-attachments/assets/b4fca504-b4f6-4e58-a6e8-ee939e6f1945" />
+
+<img width="377" height="167" alt="1" src="https://github.com/user-attachments/assets/ccfa2b37-9ee2-4106-80d0-89b0c7c9956a" />
+
+
